@@ -1,24 +1,31 @@
 # Coding Autopilot System
 
-We build enterprise-ready automation for CI remediation, self-hosted runners, and safe guardrailed fixes.
+Enterprise automation for CI remediation, self-hosted runners, and guardrailed fixes.
 
-## Core projects
-- `autopilot-core`: Organization-level control plane and operator
-- `ci-autopilot`: Runner operations and workflows
-- `enterprise-ai-gateway`: Enterprise integration point
+## Platform overview
+- Control plane: GitHub Issues as the source of truth
+- Operator: self-hosted automation that fixes CI failures and opens PRs
+- Guardrails: minimal diffs, verification first, audit trails for every attempt
 
-## Start here
-1) Review `autopilot-core` docs and runbooks
-2) Install the intake workflow into target repos
-3) Bring a self-hosted runner online
+## Dashboards
+- Org status snapshot: `https://github.com/Coding-Autopilot-System/autopilot-core/blob/main/docs/status.md`
+- Autopilot dashboard: `https://coding-autopilot-system.github.io/autopilot-core/`
 
-## Demos
-- Demo repo template: `autopilot-core/templates/demo-repo`
-- Walkthrough: `autopilot-core/docs/demos/demo-repo.md`
+## Repositories
+- `autopilot-core` - org control plane, operator, installer, runbooks
+- `ci-autopilot` - runner operations, workflows, and alerts
+- `autopilot-demo` - end-to-end demo with intentional CI failure
+- `.github` - org profile and community health files
 
 ## Operations
-- Offline runner alerts are raised as issues in `ci-autopilot`
-- Email alerts are supported when SMTP secrets are configured
+- Intake: failures open issues with `autofix` + `queued`
+- Operator: picks queued issues, runs Codex, opens PRs
+- Monitoring: runner offline alerts + email notifications (SMTP)
+- Docs: daily status refresh via workflow
+
+## Demos
+- Demo template: `autopilot-core/templates/demo-repo`
+- Walkthrough: `autopilot-core/docs/demos/demo-repo.md`
 
 ## Contact
-Use issues in the relevant repo for access requests and support.
+Use issues in the relevant repo for access requests or support.
