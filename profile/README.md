@@ -1,23 +1,24 @@
 # Coding Autopilot System
 
-We build reliable, enterprise-ready automation for CI operations and remediation. Our focus is disciplined workflows, self-hosted execution, and repeatable recovery paths.
+We build enterprise-ready automation for CI remediation, self-hosted runners, and safe guardrailed fixes.
 
 ## Core projects
-- `ci-autopilot`: Control plane, runner operations, and remediation workflows
-- `enterprise-ai-gateway`: Enterprise integration point for AI-driven workflows
+- `autopilot-core`: Organization-level control plane and operator
+- `ci-autopilot`: Runner operations and workflows
+- `enterprise-ai-gateway`: Enterprise integration point
 
-## How we work
-- Deterministic execution on hardened runners
-- Clear audit trails for every automated action
-- Minimal downtime through fast remediation
+## Start here
+1) Review `autopilot-core` docs and runbooks
+2) Install the intake workflow into target repos
+3) Bring a self-hosted runner online
 
-## Get started
-1) Review the runbooks in `docs/` for operational steps
-2) Confirm runner registration and health checks
-3) Trigger a workflow to validate end-to-end execution
+## Demos
+- Demo repo template: `autopilot-core/templates/demo-repo`
+- Walkthrough: `autopilot-core/docs/demos/demo-repo.md`
 
-## Security
-We follow least-privilege access and short-lived tokens. Audit trails live in GitHub Actions logs.
+## Operations
+- Offline runner alerts are raised as issues in `ci-autopilot`
+- Email alerts are supported when SMTP secrets are configured
 
 ## Contact
-Use issues in the relevant repo for questions or access requests.
+Use issues in the relevant repo for access requests and support.
