@@ -9,7 +9,10 @@ that demonstrate how AI agents should be built for real-world reliability, compl
 ## System Architecture
 
 ```mermaid
-graph TB
+graph TD
+    User["Developer / Operator"] -->|"GitHub Issue"| GSD
+    User -->|"multi-agent run"| AG
+
     subgraph "Coding-Autopilot-System Portfolio"
         subgraph "Layer 3 — Multi-Agent Coordination"
             AG["autogen (Python)<br/>Microsoft Agent Framework<br/>Gemini/Claude fallback<br/>AG-UI Command Center"]
