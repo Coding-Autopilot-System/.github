@@ -13,6 +13,7 @@ The core story is:
 
 ## Start Here
 
+- **Workstation bootstrap**: [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation)
 - **Autonomous execution**: [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator)
 - **Prompt governance**: [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover)
 - **Multi-agent workbench**: [autogen](https://github.com/Coding-Autopilot-System/autogen)
@@ -21,6 +22,14 @@ The core story is:
 ## Portfolio Map
 
 ### Flagship Repos
+
+#### [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation)
+
+Windows-first AI-native developer workstation bootstrap.
+
+- Establishes a repeatable engineering baseline
+- Validates installed tools and configuration
+- Reduces setup drift before autonomous workflows run
 
 #### [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator)
 
@@ -81,9 +90,17 @@ Bounded demo target for the full failure-to-fix loop.
 
 If you are evaluating this portfolio quickly:
 
-1. Read [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) for autonomous execution design.
-2. Read [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) for prompt governance and MCP thinking.
-3. Read [autogen](https://github.com/Coding-Autopilot-System/autogen) for operator-facing multi-agent runtime design.
-4. Read [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model) for enterprise architecture depth.
+1. Read [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation) for the reproducible developer baseline.
+2. Read [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) for autonomous execution design.
+3. Read [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) for prompt governance and MCP thinking.
+4. Read [autogen](https://github.com/Coding-Autopilot-System/autogen) for operator-facing multi-agent runtime design.
+5. Read [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model) for enterprise architecture depth.
+
+## Organization Standards
+
+Shared contribution, security, support, governance, intake, dependency, and release
+policies are maintained in the
+[organization `.github` repository](https://github.com/Coding-Autopilot-System/.github).
+Repository-specific standards may be stricter.
 
 Built by [@OgeonX-Ai](https://github.com/OgeonX-Ai).
