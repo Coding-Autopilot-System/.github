@@ -1,103 +1,89 @@
 # Coding-Autopilot-System
 
-An enterprise-grade AI automation platform built at the intersection of autonomous agents,
-prompt governance, and multi-agent coordination.
+AI-native engineering portfolio focused on autonomous workflows, prompt governance,
+multi-agent execution, and enterprise operating models.
 
-Three production-quality systems — written in C#/.NET 10, TypeScript, and Python —
-that demonstrate how AI agents should be built for real-world reliability, compliance, and scale.
+This organization is structured as a small platform, not a random set of demos.
+The core story is:
 
-## System Architecture
+1. install a governed workstation,
+2. run prompt-aware and agent-aware engineering workflows,
+3. observe, validate, and audit what happened,
+4. scale those patterns toward enterprise controls.
 
-```mermaid
-graph TD
-    User["Developer / Operator"] -->|"GitHub Issue"| GSD
-    User -->|"multi-agent run"| AG
+## Start Here
 
-    subgraph "Coding-Autopilot-System Portfolio"
-        subgraph "Layer 3 — Multi-Agent Coordination"
-            AG["autogen (Python)<br/>Microsoft Agent Framework<br/>Gemini/Claude fallback<br/>AG-UI Command Center"]
-        end
+- **Autonomous execution**: [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator)
+- **Prompt governance**: [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover)
+- **Multi-agent workbench**: [autogen](https://github.com/Coding-Autopilot-System/autogen)
+- **Enterprise architecture depth**: [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model)
 
-        subgraph "Layer 2 — Autonomous Workflow Engine"
-            GSD["gsd-orchestrator (C#/.NET 10)<br/>Autonomous GitHub Agent<br/>State Machine + Polly Resilience<br/>JSON-RPC MCP Client"]
-        end
+## Portfolio Map
 
-        subgraph "Layer 1 — Prompt Governance"
-            PI["Promptimprover (TypeScript)<br/>MCP Server Middleware<br/>RAG Neural Snippets<br/>ISO 27001 Compliance"]
-        end
+### Flagship Repos
 
-        AG -->|"delegates governed prompts via MCP"| GSD
-        GSD -->|"prompt refinement + compliance"| PI
-        AG -.->|"optional direct governance"| PI
-    end
+#### [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator)
 
-    subgraph "External Systems"
-        GH["GitHub API<br/>(Issues, PRs, Branches)"]
-        CLAUDE["Anthropic Claude API"]
-        GEMINI["Google Gemini API"]
-    end
+C#/.NET 10 autonomous issue-to-PR engine.
 
-    GSD -->|"reads issues, creates PRs"| GH
-    GSD -->|"plans code changes"| CLAUDE
-    AG -->|"multi-model routing"| CLAUDE
-    AG -->|"fallback model"| GEMINI
-    PI -->|"serves MCP protocol"| GSD
-    PI -->|"serves MCP protocol"| AG
-```
+- Reads GitHub issues
+- Plans and edits through a state machine
+- Uses MCP tooling for GitHub operations
+- Preserves checkpointed workflow state for retry and recovery
 
-## Projects
+#### [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover)
 
-### [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) — Autonomous GitHub Agent
+TypeScript MCP-first prompt governance layer.
 
-![License](https://img.shields.io/github/license/Coding-Autopilot-System/gsd-orchestrator)
-![Language](https://img.shields.io/badge/language-C%23%20%2F%20.NET%2010-blue)
+- Refines prompts before execution
+- Injects repo-aware context and reusable rules
+- Builds traceability between prompt intent and engineering output
 
-**C# / .NET 10** — Reads GitHub issues and autonomously plans, branches, edits, and opens PRs
-using Claude AI. Implements a state machine with Polly resilience, file checkpointing for
-durability, and a JSON-RPC MCP stdio client for prompt governance integration.
+#### [autogen](https://github.com/Coding-Autopilot-System/autogen)
 
-**Enterprise patterns:** State machine, dependency injection, Polly resilience policies, structured logging, async/await throughout with CancellationToken propagation.
+Python local-first multi-agent engineering workbench.
 
----
+- Coordinates manager-led agent workflows
+- Supports provider routing and fallback
+- Keeps operator approvals and run artifacts visible
 
-### [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) — Prompt Governance MCP Server
+#### [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model)
 
-![License](https://img.shields.io/github/license/Coding-Autopilot-System/Promptimprover)
-![Language](https://img.shields.io/badge/language-TypeScript-blue)
+Enterprise cloud security operating model for Azure and hybrid environments.
 
-**TypeScript** — MCP server middleware implementing prompt governance as a first-class
-infrastructure concern. RAG-based neural snippet retrieval, compounding memory, auto-heal
-middleware, and ISO 27001 compliance framing.
+- Service architecture and governance
+- Controls-as-code posture
+- Auditability, metrics, and runbooks
 
-**Enterprise patterns:** MCP protocol server, RAG architecture, middleware pipeline, compliance-first design.
+### Supporting Repos
 
----
+#### [autopilot-core](https://github.com/Coding-Autopilot-System/autopilot-core)
 
-### [autogen](https://github.com/Coding-Autopilot-System/autogen) — Multi-Agent Coordination
+Control plane for org-level CI repair automation.
 
-![License](https://img.shields.io/github/license/Coding-Autopilot-System/autogen)
-![Language](https://img.shields.io/badge/language-Python-blue)
+#### [ci-autopilot](https://github.com/Coding-Autopilot-System/ci-autopilot)
 
-**Python** — Multi-agent automation built on Microsoft AutoGen with model-fallback resilience
-(Anthropic Claude / Google Gemini), AG-UI Command Center for agent state observability,
-and DevUI integration for operator-in-the-loop control.
+Worker/runtime pattern for queued repair execution on self-hosted runners.
 
-**Enterprise patterns:** Agent framework integration, model-fallback routing, observability tooling, operator control plane.
+#### [autopilot-demo](https://github.com/Coding-Autopilot-System/autopilot-demo)
 
----
+Bounded demo target for the full failure-to-fix loop.
 
-## Technology Coverage
+## What This Portfolio Demonstrates
 
-| Area | Technologies |
-|------|-------------|
-| Languages | C# / .NET 10 · TypeScript · Python |
-| AI Providers | Anthropic Claude · Google Gemini |
-| Protocols | Model Context Protocol (MCP) · JSON-RPC 2.0 |
-| Patterns | State machine · RAG · Multi-agent coordination |
-| Resilience | Polly retry/circuit-breaker · Model fallback routing |
-| Infrastructure | GitHub Actions · GitHub API · GitHub MCP Server |
-| Compliance | ISO 27001 framing |
+- C#/.NET, TypeScript, Python, PowerShell, and Bicep across one coherent platform story
+- MCP integration as infrastructure, not just local tooling
+- Multi-agent and autonomous workflow design with operational guardrails
+- Enterprise-oriented concerns: auditability, resilience, boundaries, rollout, and documentation
+- Azure and hybrid architecture thinking beyond application code alone
 
----
+## Review Path
 
-Built by [@OgeonX-Ai](https://github.com/OgeonX-Ai) — AI Engineer and Senior .NET Developer
+If you are evaluating this portfolio quickly:
+
+1. Read [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) for autonomous execution design.
+2. Read [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) for prompt governance and MCP thinking.
+3. Read [autogen](https://github.com/Coding-Autopilot-System/autogen) for operator-facing multi-agent runtime design.
+4. Read [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model) for enterprise architecture depth.
+
+Built by [@OgeonX-Ai](https://github.com/OgeonX-Ai).
