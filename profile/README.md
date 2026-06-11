@@ -7,19 +7,51 @@ This organization is structured as a small platform, not a random set of demos.
 The core story is:
 
 1. install a governed workstation,
-2. run prompt-aware and agent-aware engineering workflows,
-3. observe, validate, and audit what happened,
-4. scale those patterns toward enterprise controls.
+2. exchange work through versioned lifecycle contracts,
+3. run prompt-aware and agent-aware engineering workflows,
+4. deploy through a managed-identity Azure platform,
+5. evaluate, observe, validate, and audit what happened.
 
 ## Start Here
 
 - **Workstation bootstrap**: [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation)
+- **Lifecycle contracts**: [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts)
+- **Azure platform foundation**: [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform)
+- **Evaluation evidence**: [cas-evals](https://github.com/Coding-Autopilot-System/cas-evals)
 - **Autonomous execution**: [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator)
 - **Prompt governance**: [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover)
 - **Multi-agent workbench**: [autogen](https://github.com/Coding-Autopilot-System/autogen)
 - **Enterprise architecture depth**: [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model)
 
 ## Portfolio Map
+
+### Platform Foundations
+
+#### [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts)
+
+Authoritative, versioned lifecycle contracts for the complete CAS workflow.
+
+- Standardizes prompts, policy decisions, work requests, run events, artifacts,
+  verification, and evaluation
+- Requires correlation identifiers and W3C trace context
+- Provides executable schemas and compatibility rules
+
+#### [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform)
+
+Secure Azure deployment and observability foundation.
+
+- Uses Bicep, isolated environments, and system-assigned managed identity
+- Provides Container Apps hosting, Application Insights, budgets, and safe
+  non-deploying validation
+- Keeps public ingress disabled by default
+
+#### [cas-evals](https://github.com/Coding-Autopilot-System/cas-evals)
+
+Reproducible evaluation and benchmark evidence.
+
+- Runs deterministic golden-task and adversarial-prompt suites
+- Measures quality, safety, cost, and latency independently
+- Produces machine-readable evidence suitable for regression gates
 
 ### Flagship Repos
 
@@ -81,20 +113,24 @@ Bounded demo target for the full failure-to-fix loop.
 ## What This Portfolio Demonstrates
 
 - C#/.NET, TypeScript, Python, PowerShell, and Bicep across one coherent platform story
+- Versioned cross-repository contracts and reproducible evaluation evidence
 - MCP integration as infrastructure, not just local tooling
 - Multi-agent and autonomous workflow design with operational guardrails
 - Enterprise-oriented concerns: auditability, resilience, boundaries, rollout, and documentation
-- Azure and hybrid architecture thinking beyond application code alone
+- Azure managed identity, infrastructure-as-code, observability, and hybrid architecture
 
 ## Review Path
 
 If you are evaluating this portfolio quickly:
 
 1. Read [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation) for the reproducible developer baseline.
-2. Read [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) for autonomous execution design.
-3. Read [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) for prompt governance and MCP thinking.
-4. Read [autogen](https://github.com/Coding-Autopilot-System/autogen) for operator-facing multi-agent runtime design.
-5. Read [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model) for enterprise architecture depth.
+2. Read [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts) for the shared lifecycle and traceability model.
+3. Read [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform) for secure Azure hosting and observability.
+4. Read [cas-evals](https://github.com/Coding-Autopilot-System/cas-evals) for measurable quality and safety evidence.
+5. Read [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) for autonomous execution design.
+6. Read [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) for prompt governance and MCP thinking.
+7. Read [autogen](https://github.com/Coding-Autopilot-System/autogen) for operator-facing multi-agent runtime design.
+8. Read [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model) for enterprise architecture depth.
 
 ## Organization Standards
 
