@@ -14,6 +14,7 @@ The core story is:
 
 ## Start Here
 
+- **End-to-end reference product**: [cas-reference-product](https://github.com/Coding-Autopilot-System/cas-reference-product)
 - **Workstation bootstrap**: [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation)
 - **Lifecycle contracts**: [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts)
 - **Azure platform foundation**: [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform)
@@ -24,6 +25,19 @@ The core story is:
 - **Enterprise architecture depth**: [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model)
 
 ## Portfolio Map
+
+### End-to-End Proof
+
+#### [cas-reference-product](https://github.com/Coding-Autopilot-System/cas-reference-product)
+
+Production-oriented reference workload that connects the CAS platform story.
+
+- Demonstrates Foundry Next Gen agent integration through a bounded application
+  interface
+- Uses managed identity, canonical lifecycle events, health checks, and
+  OpenTelemetry boundaries
+- Provides the workload contract consumed by `cas-platform` and evaluated by
+  `cas-evals`
 
 ### Platform Foundations
 
@@ -123,14 +137,15 @@ Bounded demo target for the full failure-to-fix loop.
 
 If you are evaluating this portfolio quickly:
 
-1. Read [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation) for the reproducible developer baseline.
-2. Read [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts) for the shared lifecycle and traceability model.
-3. Read [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform) for secure Azure hosting and observability.
-4. Read [cas-evals](https://github.com/Coding-Autopilot-System/cas-evals) for measurable quality and safety evidence.
-5. Read [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) for autonomous execution design.
-6. Read [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) for prompt governance and MCP thinking.
-7. Read [autogen](https://github.com/Coding-Autopilot-System/autogen) for operator-facing multi-agent runtime design.
-8. Read [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model) for enterprise architecture depth.
+1. Read [cas-reference-product](https://github.com/Coding-Autopilot-System/cas-reference-product) for the end-to-end application proof.
+2. Read [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation) for the reproducible developer baseline.
+3. Read [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts) for the shared lifecycle and traceability model.
+4. Read [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform) for secure Azure hosting and observability.
+5. Read [cas-evals](https://github.com/Coding-Autopilot-System/cas-evals) for measurable quality and safety evidence.
+6. Read [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) for autonomous execution design.
+7. Read [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) for prompt governance and MCP thinking.
+8. Read [autogen](https://github.com/Coding-Autopilot-System/autogen) for operator-facing multi-agent runtime design.
+9. Read [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model) for enterprise architecture depth.
 
 ## Organization Standards
 
