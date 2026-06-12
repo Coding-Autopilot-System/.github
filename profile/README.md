@@ -36,8 +36,8 @@ Production-oriented reference workload that connects the CAS platform story.
   interface
 - Uses managed identity, canonical lifecycle events, health checks, and
   OpenTelemetry boundaries
-- Provides the workload contract consumed by `cas-platform` and evaluated by
-  `cas-evals`
+- Provides the workload contract being integrated by `cas-platform`; executable
+  `cas-evals` integration is the next golden-path milestone
 
 ### Platform Foundations
 
