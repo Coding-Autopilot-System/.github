@@ -15,6 +15,7 @@ The core story is:
 ## Start Here
 
 - **End-to-end reference product**: [cas-reference-product](https://github.com/Coding-Autopilot-System/cas-reference-product)
+- **Verified case study**: [immutable golden-path evidence](https://github.com/Coding-Autopilot-System/cas-reference-product/blob/main/docs/case-study-evidence.md)
 - **Workstation bootstrap**: [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation)
 - **Lifecycle contracts**: [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts)
 - **Azure platform foundation**: [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform)
@@ -38,6 +39,8 @@ Production-oriented reference workload that connects the CAS platform story.
   OpenTelemetry boundaries
 - Provides the workload contract implemented by `cas-platform` and an executable
   local HTTP golden path evaluated by `cas-evals`
+- Publishes a [verified case study](https://github.com/Coding-Autopilot-System/cas-reference-product/blob/main/docs/case-study-evidence.md)
+  backed by an [immutable evidence bundle](https://github.com/Coding-Autopilot-System/cas-reference-product/tree/main/evidence/verified-local-golden-path-v0.1)
 
 ### Platform Foundations
 
@@ -137,7 +140,7 @@ Bounded demo target for the full failure-to-fix loop.
 
 If you are evaluating this portfolio quickly:
 
-1. Read [cas-reference-product](https://github.com/Coding-Autopilot-System/cas-reference-product) for the end-to-end application proof.
+1. Read the [verified case study](https://github.com/Coding-Autopilot-System/cas-reference-product/blob/main/docs/case-study-evidence.md) and inspect its [immutable evidence bundle](https://github.com/Coding-Autopilot-System/cas-reference-product/tree/main/evidence/verified-local-golden-path-v0.1).
 2. Read [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation) for the reproducible developer baseline.
 3. Read [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts) for the shared lifecycle and traceability model.
 4. Read [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform) for secure Azure hosting and observability.
