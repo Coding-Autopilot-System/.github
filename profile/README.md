@@ -1,5 +1,8 @@
 # Coding-Autopilot-System
 
+> [!TIP]
+> Are you an enterprise engineering leader? Read our pitch on **[Why Enterprises Need CAS](ENTERPRISE.md)**.
+
 AI-native engineering portfolio focused on autonomous workflows, prompt governance,
 multi-agent execution, and enterprise operating models.
 
