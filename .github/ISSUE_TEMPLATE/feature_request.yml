@@ -1,0 +1,35 @@
+name: AI Feature Request
+description: Request the Coding Autopilot System (CAS) to autonomously build a new feature.
+title: "[FEATURE]: "
+labels: ["enhancement", "ai-dispatch"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🤖 CAS Factory Dispatch
+        This issue template is parsed by the `gsd-orchestrator`. Please provide clear, mathematical specifications.
+  - type: input
+    id: phase
+    attributes:
+      label: Phase or Milestone
+      description: What phase does this belong to in the roadmap?
+      placeholder: e.g., Phase 19.1
+    validations:
+      required: false
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Functional Requirements
+      description: What exactly should the AI build?
+      placeholder: Describe the desired behavior...
+    validations:
+      required: true
+  - type: textarea
+    id: technical_constraints
+    attributes:
+      label: Technical Constraints
+      description: Are there any specific technologies or rules the AI must follow?
+      placeholder: e.g., "Must use async/await", "Do not modify the database schema"
+    validations:
+      required: false

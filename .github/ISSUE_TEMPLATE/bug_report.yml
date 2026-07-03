@@ -1,0 +1,34 @@
+name: AI Bug Report
+description: Request the Coding Autopilot System (CAS) to autonomously investigate and fix a bug.
+title: "[BUG]: "
+labels: ["bug", "ai-dispatch"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🤖 CAS Factory Dispatch
+        This issue template is parsed by the `gsd-orchestrator`. Please provide exact reproduction steps.
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: What is the unexpected behavior?
+      placeholder: When I click X, Y crashes...
+    validations:
+      required: true
+  - type: textarea
+    id: repro_steps
+    attributes:
+      label: Reproduction Steps
+      description: How can the AI agent reproduce this issue?
+      placeholder: 1. Go to... 2. Run command...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Stack Trace
+      description: Paste any relevant error logs here.
+    validations:
+      required: false
