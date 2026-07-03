@@ -1,8 +1,14 @@
-## Description
+## Intent
 <!-- Describe your changes -->
 
-## SDLC Verification
+## Risk And Safety
+<!-- Describe any risks and safety measures -->
+
+## Verification
 - [ ] Code follows CAS architecture (`AGENTS.md`)
 - [ ] Tested via `gsd-verify-work`
 - [ ] No embedded secrets or credentials
 - [ ] Passed `gsd-code-review`
+
+## Rollback
+<!-- Describe rollback plan -->
