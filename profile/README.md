@@ -1,136 +1,68 @@
 # Coding-Autopilot-System
 
+> **Speed without governance creates risk. Governance without speed creates irrelevance.**
+> Read the full thesis in **[our Vision](VISION.md)**.
+
+AI-native engineering portfolio: autonomous multi-agent execution, prompt governance, versioned
+lifecycle contracts, and Azure-ready platform foundations — every gate machine-executable and
+evidence-producing, not a meeting.
+
 > [!TIP]
-> Are you an enterprise engineering leader? Read our pitch on **[Why Enterprises Need CAS](ENTERPRISE.md)**.
+> Are you an enterprise engineering leader? Read **[Why Enterprises Need CAS](ENTERPRISE.md)**.
 
-AI-native engineering portfolio focused on autonomous workflows, prompt governance,
-multi-agent execution, and enterprise operating models.
+## Governed autonomy, in one diagram
 
-This organization is structured as a small platform, not a random set of demos.
-The core story is:
+```mermaid
+flowchart LR
+    subgraph Control["Control plane - gsd-orchestrator"]
+        G[Goal admission<br/>typed, bounded, budgeted] --> S[Dependency-aware<br/>scheduling]
+    end
+    subgraph Execution["Execution plane - autogen"]
+        S --> W1[Worker fan-out<br/>isolated mutation scope]
+        W1 --> T[Typed failure states<br/>structured telemetry]
+    end
+    subgraph Governance["Governance plane"]
+        P[Promptimprover] -.gates.-> W1
+        C[cas-contracts] -.validates.-> T
+        E[cas-evals] --> V{Evidence<br/>gate}
+    end
+    T --> E
+    V -->|proven| M[Merge via PR]
+    V -->|failed| R[Bounded repair<br/>or halt]
+    R --> S
+```
 
-1. install a governed workstation,
-2. exchange work through versioned lifecycle contracts,
-3. run prompt-aware and agent-aware engineering workflows,
-4. deploy through a managed-identity Azure platform,
-5. evaluate, observe, validate, and audit what happened.
+Full narrative, proof points, and every gate's falsifiable check: **[profile/VISION.md](VISION.md)**.
 
-## Start Here
+## Repo map
 
-- **End-to-end reference product**: [cas-reference-product](https://github.com/Coding-Autopilot-System/cas-reference-product)
-- **Verified case study**: [immutable golden-path evidence](https://github.com/Coding-Autopilot-System/cas-reference-product/blob/main/docs/case-study-evidence.md)
-- **Workstation bootstrap**: [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation)
-- **Lifecycle contracts**: [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts)
-- **Azure platform foundation**: [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform)
-- **Evaluation evidence**: [cas-evals](https://github.com/Coding-Autopilot-System/cas-evals)
-- **Autonomous execution**: [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator)
-- **Prompt governance**: [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover)
-- **Multi-agent workbench**: [autogen](https://github.com/Coding-Autopilot-System/autogen)
-- **Enterprise architecture depth**: [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model)
+| Repo | Plane / category | What it does |
+|---|---|---|
+| [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) | Control | Autonomous issue-to-PR engine (.NET 10); goal admission and scheduling |
+| [autogen](https://github.com/Coding-Autopilot-System/autogen) | Execution | Multi-agent worker fan-out on Microsoft Agent Framework (Python) |
+| [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) | Governance | MCP-first prompt governance and traceability |
+| [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts) | Governance | Versioned lifecycle schemas — prompts, events, artifacts, `FailureState` |
+| [cas-evals](https://github.com/Coding-Autopilot-System/cas-evals) | Governance | Deterministic evaluation and evidence-gate verification |
+| [cas-reference-product](https://github.com/Coding-Autopilot-System/cas-reference-product) | Proof | End-to-end reference workload with a [verified case study](https://github.com/Coding-Autopilot-System/cas-reference-product/blob/main/docs/case-study-evidence.md) |
+| [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform) | Platform | Azure hosting/observability foundation — bicep-ready, deploy-locked |
+| [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model) | Platform | Enterprise cloud security operating model |
+| [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation) | Workstation | Windows-first AI-native developer workstation bootstrap |
+| [autopilot-core](https://github.com/Coding-Autopilot-System/autopilot-core) | CI Automation | Control plane for org-level CI repair automation |
+| [ci-autopilot](https://github.com/Coding-Autopilot-System/ci-autopilot) | CI Automation | Worker/runtime for queued repair execution on self-hosted runners |
+| [autopilot-demo](https://github.com/Coding-Autopilot-System/autopilot-demo) | CI Automation | Bounded demo target for the full failure-to-fix loop |
+| [.github (this repo)](https://github.com/Coding-Autopilot-System/.github) | Org | Governance, community health files, and this profile |
 
-## Portfolio Map
+## Review path
 
-### End-to-End Proof
+Evaluating this portfolio quickly? Read in this order:
 
-#### [cas-reference-product](https://github.com/Coding-Autopilot-System/cas-reference-product)
+1. **[Vision](VISION.md)** — the governance-with-speed thesis and proof points.
+2. **[Verified case study](https://github.com/Coding-Autopilot-System/cas-reference-product/blob/main/docs/case-study-evidence.md)** — real evidence, not a demo script.
+3. **[cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation)** — the reproducible developer baseline.
+4. **[cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts)** — shared lifecycle and traceability model.
+5. **[gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator)** — autonomous execution design.
 
-Production-oriented reference workload that connects the CAS platform story.
-
-- Demonstrates Foundry Next Gen agent integration through a bounded application
-  interface
-- Uses managed identity, canonical lifecycle events, health checks, and
-  OpenTelemetry boundaries
-- Provides the workload contract implemented by `cas-platform` and an executable
-  local HTTP golden path evaluated by `cas-evals`
-- Publishes a [verified case study](https://github.com/Coding-Autopilot-System/cas-reference-product/blob/main/docs/case-study-evidence.md)
-  backed by an [immutable evidence bundle](https://github.com/Coding-Autopilot-System/cas-reference-product/tree/main/evidence/verified-local-golden-path-v0.1)
-
-### Platform Foundations
-
-#### [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts)
-
-Authoritative, versioned lifecycle contracts for the complete CAS workflow.
-
-- Standardizes prompts, policy decisions, work requests, run events, artifacts,
-  verification, and evaluation
-- Requires correlation identifiers and W3C trace context
-- Provides executable schemas and compatibility rules
-
-#### [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform)
-
-Secure Azure deployment and observability foundation.
-
-- Uses Bicep, isolated environments, and system-assigned managed identity
-- Provides Container Apps hosting, Application Insights, budgets, and safe
-  non-deploying validation
-- Keeps public ingress disabled by default
-
-#### [cas-evals](https://github.com/Coding-Autopilot-System/cas-evals)
-
-Reproducible evaluation and benchmark evidence.
-
-- Runs deterministic golden-task and adversarial-prompt suites
-- Measures quality, safety, cost, and latency independently
-- Produces machine-readable evidence suitable for regression gates
-
-### Flagship Repos
-
-#### [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation)
-
-Windows-first AI-native developer workstation bootstrap.
-
-- Establishes a repeatable engineering baseline
-- Validates installed tools and configuration
-- Reduces setup drift before autonomous workflows run
-
-#### [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator)
-
-C#/.NET 10 autonomous issue-to-PR engine.
-
-- Reads GitHub issues
-- Plans and edits through a state machine
-- Uses MCP tooling for GitHub operations
-- Preserves checkpointed workflow state for retry and recovery
-
-#### [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover)
-
-TypeScript MCP-first prompt governance layer.
-
-- Refines prompts before execution
-- Injects repo-aware context and reusable rules
-- Builds traceability between prompt intent and engineering output
-
-#### [autogen](https://github.com/Coding-Autopilot-System/autogen)
-
-Python local-first multi-agent engineering workbench.
-
-- Coordinates manager-led agent workflows
-- Supports provider routing and fallback
-- Keeps operator approvals and run artifacts visible
-
-#### [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model)
-
-Enterprise cloud security operating model for Azure and hybrid environments.
-
-- Service architecture and governance
-- Controls-as-code posture
-- Auditability, metrics, and runbooks
-
-### Supporting Repos
-
-#### [autopilot-core](https://github.com/Coding-Autopilot-System/autopilot-core)
-
-Control plane for org-level CI repair automation.
-
-#### [ci-autopilot](https://github.com/Coding-Autopilot-System/ci-autopilot)
-
-Worker/runtime pattern for queued repair execution on self-hosted runners.
-
-#### [autopilot-demo](https://github.com/Coding-Autopilot-System/autopilot-demo)
-
-Bounded demo target for the full failure-to-fix loop.
-
-## What This Portfolio Demonstrates
+## What this portfolio demonstrates
 
 - C#/.NET, TypeScript, Python, PowerShell, and Bicep across one coherent platform story
 - Versioned cross-repository contracts and reproducible evaluation evidence
@@ -139,25 +71,12 @@ Bounded demo target for the full failure-to-fix loop.
 - Enterprise-oriented concerns: auditability, resilience, boundaries, rollout, and documentation
 - Azure managed identity, infrastructure-as-code, observability, and hybrid architecture
 
-## Review Path
+## Organization standards
 
-If you are evaluating this portfolio quickly:
-
-1. Read the [verified case study](https://github.com/Coding-Autopilot-System/cas-reference-product/blob/main/docs/case-study-evidence.md) and inspect its [immutable evidence bundle](https://github.com/Coding-Autopilot-System/cas-reference-product/tree/main/evidence/verified-local-golden-path-v0.1).
-2. Read [cas-workstation](https://github.com/Coding-Autopilot-System/cas-workstation) for the reproducible developer baseline.
-3. Read [cas-contracts](https://github.com/Coding-Autopilot-System/cas-contracts) for the shared lifecycle and traceability model.
-4. Read [cas-platform](https://github.com/Coding-Autopilot-System/cas-platform) for secure Azure hosting and observability.
-5. Read [cas-evals](https://github.com/Coding-Autopilot-System/cas-evals) for measurable quality and safety evidence.
-6. Read [gsd-orchestrator](https://github.com/Coding-Autopilot-System/gsd-orchestrator) for autonomous execution design.
-7. Read [Promptimprover](https://github.com/Coding-Autopilot-System/Promptimprover) for prompt governance and MCP thinking.
-8. Read [autogen](https://github.com/Coding-Autopilot-System/autogen) for operator-facing multi-agent runtime design.
-9. Read [cloud-security-service-model](https://github.com/Coding-Autopilot-System/cloud-security-service-model) for enterprise architecture depth.
-
-## Organization Standards
-
-Shared contribution, security, support, governance, intake, dependency, and release
-policies are maintained in the
-[organization `.github` repository](https://github.com/Coding-Autopilot-System/.github).
+Shared contribution, security, support, governance, intake, dependency, and release policies are
+maintained in this [organization `.github` repository](https://github.com/Coding-Autopilot-System/.github).
 Repository-specific standards may be stricter.
 
 Built by [@OgeonX-Ai](https://github.com/OgeonX-Ai).
+
+<!-- docs-verified: 46b4bcf4e334ce9aec4e00dcf7c9fb1c40db837a 2026-07-08 -->
