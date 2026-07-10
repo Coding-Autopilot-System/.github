@@ -1,0 +1,134 @@
+name: "Review Bot"
+on:
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  review:
+    name: review-bot
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      # Base-ref checkout only -- this workflow never checks out or executes
+      # the untrusted PR head; it only reads a computed diff as text and
+      # feeds it to the pinned, trusted autogen critic (see below).
+      - name: Checkout repository (base ref, scripts only)
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Set up Python
+        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Mint review-bot App installation token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.REVIEW_BOT_APP_ID }}
+          private-key: ${{ secrets.REVIEW_BOT_PRIVATE_KEY }}
+
+      # --- Gate 1: eligibility classifier -------------------------------
+      - name: Classify eligibility
+        id: classify
+        shell: pwsh
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          pwsh -File .github/scripts/classify-automerge-eligibility.ps1 `
+            -PrNumber ${{ github.event.pull_request.number }} `
+            -Repo ${{ github.repository }}
+          if ($LASTEXITCODE -eq 0) {
+            "eligible=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          } else {
+            "eligible=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          }
+
+      - name: Out-of-class - no approval, human review path
+        if: steps.classify.outputs.eligible != 'true'
+        run: |
+          echo "PR is OUT-OF-CLASS. review-bot will not approve or merge. Falling back to human review."
+
+      # --- Gate 2: deterministic critic (autogen critic_cli, pinned) ----
+      - name: Compute PR diff (base...head)
+        id: diff
+        if: steps.classify.outputs.eligible == 'true'
+        run: |
+          set -euo pipefail
+          git fetch origin "${{ github.event.pull_request.base.ref }}" --depth=100
+          git fetch origin "pull/${{ github.event.pull_request.number }}/head:pr-head" --depth=100
+          git diff "origin/${{ github.event.pull_request.base.ref }}...pr-head" > "${{ github.workspace }}/pr.diff"
+
+      - name: Checkout autogen (pinned commit, for critic_cli)
+        if: steps.classify.outputs.eligible == 'true'
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          repository: Coding-Autopilot-System/autogen
+          # Pinned to origin/main commit b0524b7 (merged PR #17,
+          # "consolidate refresh stack and workflow hardening"), verified
+          # via `git log origin/main -- maf_starter/critic_cli.py`. NEVER
+          # point this at feat/phase-29-peer-critic (closed, unmerged PR
+          # #14 -- see docs/merge-flow-policy.md).
+          ref: b0524b762024237d047fde25b50679da42e1a5e2
+          path: autogen-critic
+        continue-on-error: true
+        id: checkout-autogen
+
+      - name: Pin verification guard
+        if: steps.classify.outputs.eligible == 'true' && steps.checkout-autogen.outcome != 'success'
+        run: |
+          echo "autogen checkout at the pinned critic_cli SHA failed -- treating as a hard stop (fail-closed). No approval will be issued." >&2
+          exit 1
+
+      - name: Run critic_cli against PR diff
+        id: critic
+        if: steps.classify.outputs.eligible == 'true'
+        working-directory: autogen-critic
+        env:
+          PYTHONPATH: ${{ github.workspace }}/autogen-critic
+        run: |
+          set -o pipefail
+          python -m pip install --quiet -r requirements.txt
+          python -m maf_starter.critic_cli --diff "${{ github.workspace }}/pr.diff" --severity-gate blocking \
+            | tee "${{ github.workspace }}/critic-output.txt"
+          exit_code=${PIPESTATUS[0]}
+          echo "critic_exit=${exit_code}" >> "$GITHUB_OUTPUT"
+        continue-on-error: true
+
+      - name: Request changes - critic findings block auto-merge
+        if: steps.classify.outputs.eligible == 'true' && steps.critic.outputs.critic_exit != '0'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh pr review "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" \
+            --request-changes --body-file "${{ github.workspace }}/critic-output.txt" || true
+          echo "critic_cli reported blocking findings (or could not run). review-bot will not approve." >&2
+
+      # --- Gate 3: required CI checks green ------------------------------
+      - name: Confirm required CI checks are green
+        id: ci-green
+        if: steps.classify.outputs.eligible == 'true' && steps.critic.outputs.critic_exit == '0'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh pr checks "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" --required
+
+      # --- Approve + auto-merge (App identity, all three gates clean) ---
+      - name: Approve and enable auto-merge (review-bot App)
+        if: >-
+          steps.classify.outputs.eligible == 'true' &&
+          steps.critic.outputs.critic_exit == '0' &&
+          steps.ci-green.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh pr review "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" \
+            --approve --body "cas-review-bot: eligibility=IN-CLASS, critic_cli=0 blocking, CI=green. Auto-approved per docs/merge-flow-policy.md."
+          gh pr merge "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" --auto --squash
