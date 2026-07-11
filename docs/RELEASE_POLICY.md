@@ -41,10 +41,12 @@ safety boundaries.
    and its default flow opens a review-gated "release PR" rather than tagging
    directly on every merge, which fits the existing two-party-review governance
    instead of fighting it.
-2. **Uniform `release-type: simple` across all 13 repos**, regardless of language
+2. **Uniform manifest `release-type: simple` across all 13 repos**, regardless of language
    (C#, Python, Node, PowerShell, docs-only). `simple` only manages a
    `CHANGELOG.md` + version manifest and never mutates a language-specific manifest
-   file, avoiding 13 different per-language configurations.
+   file, avoiding 13 different per-language configurations. The reusable action
+   deliberately does not pass a `release-type` input, because release-please's
+   manifest mode derives the strategy from each repository's config file.
 3. **Each repo keeps its own independent SemVer line** — not synced to the CAS
    portfolio milestone number (e.g. v1.5). gsd-orchestrator (already at v4.0.0) and
    cas-contracts (already at v1.1.1) already prove per-repo versioning is
@@ -65,4 +67,6 @@ safety boundaries.
    itself SHA-pinned, per the existing Phase 31 org action-pinning policy. Bumping
    the pinned release-please-action version later requires a deliberate, reviewed
    SHA update in each caller — the same accepted maintenance tradeoff Phase 31
-   already established for direct action pins.
+   already established for direct action pins. This repository calls its own
+   reusable workflow with a relative path so that the caller and implementation
+   are evaluated from the same reviewed commit.
