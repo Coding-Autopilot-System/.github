@@ -56,15 +56,16 @@ jobs:
           echo "PR is OUT-OF-CLASS. review-bot will not approve or merge. Falling back to human review."
 
       # --- Gate 2: deterministic critic (autogen critic_cli, pinned) ----
-      - name: Compute PR diff (base...head)
-        id: diff
-        if: steps.classify.outputs.eligible == 'true'
-        run: |
-          set -euo pipefail
-          git fetch origin "${{ github.event.pull_request.base.ref }}" --depth=100
-          git fetch origin "pull/${{ github.event.pull_request.number }}/head:pr-head" --depth=100
-          git diff "origin/${{ github.event.pull_request.base.ref }}...pr-head" > "${{ github.workspace }}/pr.diff"
-
+      # SECURITY (T-38-SEC-PWN / CodeQL actions/checkout-of-untrusted-code,
+      # PR #17 review-bot.yml lines 59-68): this job runs under
+      # pull_request_target with a minted App token, so the PR head is
+      # untrusted content in a privileged context. It MUST NOT be fetched,
+      # checked out, or merged into the local git object database here --
+      # not even via a bare `git fetch`. The diff is obtained exclusively
+      # through the GitHub API (`gh pr diff`, an authenticated HTTPS call
+      # that returns text, not a git ref) and streamed straight into
+      # critic_cli over stdin in the "Run critic_cli" step below. No PR-head
+      # commit ever touches this runner's filesystem or git state.
       - name: Checkout autogen (pinned commit, for critic_cli)
         if: steps.classify.outputs.eligible == 'true'
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -86,19 +87,30 @@ jobs:
           echo "autogen checkout at the pinned critic_cli SHA failed -- treating as a hard stop (fail-closed). No approval will be issued." >&2
           exit 1
 
-      - name: Run critic_cli against PR diff
+      - name: Run critic_cli against PR diff (diff via API, no checkout of PR head)
         id: critic
         if: steps.classify.outputs.eligible == 'true'
         working-directory: autogen-critic
         env:
           PYTHONPATH: ${{ github.workspace }}/autogen-critic
+          # Read-only default token (permissions: contents: read, pull-requests:
+          # read) is sufficient for `gh pr diff`; the App token is intentionally
+          # NOT used here (least privilege -- this step never approves/merges).
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -o pipefail
           python -m pip install --quiet -r requirements.txt
-          python -m maf_starter.critic_cli --diff "${{ github.workspace }}/pr.diff" --severity-gate blocking \
+          gh pr diff "${{ github.event.pull_request.number }}" --repo "${{ github.repository }}" \
+            | python -m maf_starter.critic_cli --diff - --severity-gate blocking \
             | tee "${{ github.workspace }}/critic-output.txt"
-          exit_code=${PIPESTATUS[0]}
-          echo "critic_exit=${exit_code}" >> "$GITHUB_OUTPUT"
+          diff_exit=${PIPESTATUS[0]}
+          critic_exit=${PIPESTATUS[1]}
+          if [ "${diff_exit}" -ne 0 ]; then
+            echo "gh pr diff failed (exit ${diff_exit}) -- treating as a hard stop (fail-closed). No approval will be issued." >&2
+            echo "critic_exit=1" >> "$GITHUB_OUTPUT"
+            exit 1
+          fi
+          echo "critic_exit=${critic_exit}" >> "$GITHUB_OUTPUT"
         continue-on-error: true
 
       - name: Request changes - critic findings block auto-merge
