@@ -10,3 +10,5 @@ jobs:
       pull-requests: write
       issues: write
     uses: ./.github/workflows/release-please-reusable.yml
+    secrets:
+      release-please-token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
