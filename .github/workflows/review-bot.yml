@@ -19,10 +19,10 @@ jobs:
       # the untrusted PR head; it only reads a computed diff as text and
       # feeds it to the pinned, trusted autogen critic (see below).
       - name: Checkout repository (base ref, scripts only)
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Python
-        uses: actions/setup-python@e797f83bcb11b83ae66e0230d6156d7c80228e7c # v6.0.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
 
@@ -68,7 +68,7 @@ jobs:
       # commit ever touches this runner's filesystem or git state.
       - name: Checkout autogen (pinned commit, for critic_cli)
         if: steps.classify.outputs.eligible == 'true'
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: Coding-Autopilot-System/autogen
           # Pinned to origin/main commit b0524b7 (merged PR #17,
